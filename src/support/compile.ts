@@ -30,6 +30,7 @@ export const compile = async (
       js: "import { createRequire } from 'module';const require = createRequire(import.meta.url);",
     },
     mainFields: ["module", "main"],
+    external: ["ssh2"],
   });
 
   if (debug) {
@@ -45,7 +46,7 @@ const pkg = {
   description:
     "This package contains the dependencies needed at runtime, that cannot be bundled",
   dependencies: {
-    // "ssh2-sftp-client": "^8.1.0",
+    "ssh2-sftp-client": "^9.0.4",
   },
 };
 

@@ -1,4 +1,5 @@
 import * as ftp from "basic-ftp";
+import * as sftp from "ssh2-sftp-client";
 
 export type SkippedItem = {
   path: string;
@@ -7,6 +8,12 @@ export type SkippedItem = {
 
 export type RemoteFileDetails = {
   filesToProcess: ftp.FileInfo[];
+  processingErrors?: ProcessingError[];
+  skippedItems?: SkippedItem[];
+};
+
+export type RemoteSftpFileDetails = {
+  filesToProcess: sftp.FileInfo[];
   processingErrors?: ProcessingError[];
   skippedItems?: SkippedItem[];
 };

@@ -19,6 +19,7 @@ import {
 } from "../../../lib/types/FtpPollerConfig.js";
 import { FtpPollingResults } from "./types.js";
 import { pollFtp } from "./protocols/ftp.js";
+import { pollSftp } from "./protocols/sftp.js";
 
 const keyspaceName = PARTNERS_KEYSPACE_NAME;
 const ftpConfigStashKey = "bootstrap|ftp-poller-config";
@@ -32,12 +33,13 @@ const pollerHandlerMap: {
   [index: string]: (ftpConfig: FtpPollerConfig) => Promise<FtpPollingResults>;
 } = {
   ftp: pollFtp,
-  // sftp: pollSftp can easily be added if/when needed
+  sftp: pollSftp,
 };
 
 export const handler = async (
-  ftpConfigId: string
+  event: any
 ): Promise<FtpPollingResults | FailureResponse> => {
+  const ftpConfigId = event.ftpConfigId;
   const executionTime = new Date().toISOString();
   const executionId = generateExecutionId({ executionTime });
 
